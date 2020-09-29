@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bellybutton Biodiversity</title>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -23,21 +23,33 @@
       <div class="col-md-2">
         <div class="well">
           <h5>Test Subject ID No.:</h5>
-          <select id="selDataset" onchange="indexIdNo(this.value)"></select>
+
+          <select id="selDataset" onchange="indexIdNo(this.value)">
+            <option value=selDataset></option>
+          </select>
+<!-- 
+          <div id = metaSelection></div>
+
+          <div id ="bar"></div> -->
+
+
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Demographic Info</h3>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+            <div id="retrieveIdData"></div>
           </div>
-          <div id="sample-metadata" class="panel-body">
-            <ul>
-              <li id="PtId">ID: </li>
-              <li id="ethnicity">Ethnicity: </li>
-              <li id="gender">Gender: </li>
-              <li id="age">Age: </li>
-              <li id="location">Location: </li>
-            </ul>
-          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+
+
         </div>
       </div>
       <div class="col-md-5">
@@ -56,10 +68,10 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./static/js/app.js"></script>
+  <script src="static/js/app.js"></script>
   <!-- <script src="./static/js/bonus.js"></script> -->
-  <script src="samples.json" type ="application/json"></script>
-  
+  <script src="samples.json" type = "application/json"></script>
+
 </body>
 
 </html>
