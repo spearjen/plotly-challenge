@@ -103,7 +103,7 @@ function indexIdNo() {
     Plotly.newPlot("bar",data,layout);
 
     var trace2 = {
-        x: otuIdBarArrayAll,
+        x: otuIdsAll,
         y: sampleValuesAll,
         mode: 'markers',
         text: otuLabelsAll,
