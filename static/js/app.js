@@ -1,7 +1,6 @@
 
 // How to get just the top 10 OTUs found in that individual and keep integrity with otu_ids?
-// Change size of bubbles to represent count of bacteria.
-// Change color of bubbles to represent kind of bacteria.
+// What exactly am I supposed to be bubble graphing?
 // Pass demographic values to index.html.
 
 // unpack
@@ -15,6 +14,7 @@ d3.json("../../samples.json").then((data)=>{
     console.log(data);
     console.log(data.names);
     console.log(data.metadata);
+    console.log(data.samples);
 
 // define variables for use
 var namesArray = data.names;
@@ -60,23 +60,34 @@ function indexIdNo() {
     console.log(bbInfo);
 
     var otuIds=bbInfo.otu_ids.slice(0,10);
+    var otuIdsAll=bbInfo.otu_ids;
+    console.log(otuIds);
+    console.log(otuIdsAll);
 
     // turn otu ids into OTU [number]
-    var otuIdBarList = []
-    var otuIdBar = otuIds.forEach(element => otuIdBarList.push(`OTU ${element}`));
-    console.log(otuIdBarList)
+    var otuIdBarArray = []
+    var otuIdBar = otuIds.forEach(element => otuIdBarArray.push(`OTU ${element}`));
+    console.log(otuIdBarArray);
 
-    var sampleValues=bbInfo.sample_values.slice(0,10)
+
+    // turn otu ids into OTU [number]
+    var otuIdBarArrayAll = []
+    var otuIdBarAll = otuIdsAll.forEach(element => otuIdBarArrayAll.push(`OTU ${element}`));
+    console.log(otuIdBarArrayAll);
+
+    var sampleValues=bbInfo.sample_values.slice(0,10);
+    var sampleValuesAll=bbInfo.sample_values;
     console.log(sampleValues);
 
-    var otuLabels=bbInfo.otu_labels.slice(0,10)
+    var otuLabels=bbInfo.otu_labels.slice(0,10);
+    var otuLabelsAll=bbInfo.otu_labels;
     console.log(otuLabels);
 
     // bar graph
     var trace1={
         type: "bar",
         x: sampleValues,
-        y: otuIdBarList,
+        y: otuIdBarArray,
         orientation: "h",
         text: otuLabels
     };
@@ -92,13 +103,13 @@ function indexIdNo() {
     Plotly.newPlot("bar",data,layout);
 
     var trace2 = {
-        x: otuIdBarList,
-        y: sampleValues,
+        x: otuIdBarArrayAll,
+        y: sampleValuesAll,
         mode: 'markers',
-        text: otuLabels,
+        text: otuLabelsAll,
         marker: {
-            color: sampleValues,
-            size: otuIds,
+            color: otuIdsAll,
+            size: sampleValuesAll,
         }
       };
       
