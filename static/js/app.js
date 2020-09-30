@@ -1,7 +1,7 @@
 
-// How to get just the top 10 OTUs found in that individual and keep integrity with otu_ids?
-// What exactly am I supposed to be bubble graphing?
-// Pass demographic values to index.html.
+// How to sort so get just the top 10 OTUs found in that individual and keep integrity with otu_ids?
+// How to set colorscale to "earth"?
+// How to get page to open defaulting to 940 info?
 
 // unpack
 function unpack(dataArr, index) {
@@ -27,21 +27,27 @@ for(index in namesArray) {
 })
 
 // change everything on user selection
-function indexIdNo() {
+function indexIdNo(sample) {
+    console.log(`sample`)
     d3.json("../../samples.json").then((data)=>{
-        console.log(data);
-        console.log(data.names);
-        console.log(data.metadata);
+
         
     var dropdownMenu = d3.select("#selDataset");
 
     // Assign the value of the dropdown menu option to a variable
-    var indexNo = dropdownMenu.property("value");
+    var indexNo = sample;
+    // var indexNo = dropdownMenu.property("value");
     console.log(indexNo);
 
     // demographics
     var PtId = data.metadata[indexNo];
     console.log(PtId);
+
+    var id = PtId.id;
+    console.log(id);
+
+    var bbType = PtId.bbtype;
+    console.log(bbType);
 
     var ethnicity = PtId.ethnicity;
     console.log(ethnicity);
@@ -59,7 +65,7 @@ function indexIdNo() {
     var bbInfo = data.samples[indexNo];
     console.log(bbInfo);
 
-    var otuIds=bbInfo.otu_ids.slice(0,10);
+    var otuIds=bbInfo.otu_ids.slice(0,10).reverse();
     var otuIdsAll=bbInfo.otu_ids;
     console.log(otuIds);
     console.log(otuIdsAll);
@@ -75,13 +81,15 @@ function indexIdNo() {
     var otuIdBarAll = otuIdsAll.forEach(element => otuIdBarArrayAll.push(`OTU ${element}`));
     console.log(otuIdBarArrayAll);
 
-    var sampleValues=bbInfo.sample_values.slice(0,10);
+    var sampleValues=bbInfo.sample_values.slice(0,10).reverse();
     var sampleValuesAll=bbInfo.sample_values;
     console.log(sampleValues);
+    console.log(sampleValuesAll);
 
-    var otuLabels=bbInfo.otu_labels.slice(0,10);
+    var otuLabels=bbInfo.otu_labels.slice(0,10).reverse();
     var otuLabelsAll=bbInfo.otu_labels;
     console.log(otuLabels);
+    console.log(otuLabelsAll);
 
     // bar graph
     var trace1={
@@ -89,7 +97,7 @@ function indexIdNo() {
         x: sampleValues,
         y: otuIdBarArray,
         orientation: "h",
-        text: otuLabels
+        text: otuLabels,
     };
 
     var data = [trace1];
@@ -97,7 +105,8 @@ function indexIdNo() {
     var layout = {
         title: `Belly Button Bacteria (OTU) by Values`,
         height: 600,
-        width: 1000
+        width: 1000,
+
     };
 
     Plotly.newPlot("bar",data,layout);
@@ -110,29 +119,36 @@ function indexIdNo() {
         marker: {
             color: otuIdsAll,
             size: sampleValuesAll,
+            colorscale: 'Earth'
         }
       };
       
       var data = [trace2];
       
       var layout = {
+        title: `Belly Button Bacteria (OTU) by Values`,
         showlegend: false,
         height: 1000,
-        width: 1500,
+        width: 1400,
 
       };
       
       Plotly.newPlot('bubble', data, layout);
 
-    //   const oldli1 = document.getElementById("PtId");
-    //   const newli1 = document.createElement("li");
-    //   newDiv.innterHTML = `<li id="PtId1"> ID: ${PtId}</li>`;
-    //   oldli1.replace(oldli1,newli1);
+       // Then, select the unordered list element by class name
+        var list = d3.select(".summary");
 
-    //   <li id="ethnicity"> Ethnicity: ${ethnicity}</li>
-    //     <li id="gender"> Gender: ${gender}</li><li id="age"> Age: ${age}</li><li id="location">Location: ${location}</li></ul></div>`;
-    //   oldDiv.replace(newDiv,oldDiv);
+        // remove any children from the list to
+        list.html("");
+
+        // append stats to the list
+        list.append("li").text(`ID: ${id}`);
+        list.append("li").text(`BB Type: ${bbType}`);
+        list.append("li").text(`Ethnicity: ${ethnicity}`);
+        list.append("li").text(`Gender: ${gender}`);
+        list.append("li").text(`Age: ${age}`);
+        list.append("li").text(`Loc: ${location}`);
+
     });
-
-
 };
+indexIdNo(0)
