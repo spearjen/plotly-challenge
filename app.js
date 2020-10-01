@@ -1,8 +1,3 @@
-
-// How to sort so get just the top 10 OTUs found in that individual and keep integrity with otu_ids?
-// How to set colorscale to "earth"?
-// How to get page to open defaulting to 940 info?
-
 // unpack
 function unpack(dataArr, index) {
     return dataArr.map(row=>row[index])
@@ -10,7 +5,7 @@ function unpack(dataArr, index) {
 
 // retrieve info from samples file and print to console to verify
 // function createSelection() {
-d3.json("../../samples.json").then((data)=>{
+d3.json("samples.json").then((data)=>{
     console.log(data);
     console.log(data.names);
     console.log(data.metadata);
@@ -29,7 +24,7 @@ for(index in namesArray) {
 // change everything on user selection
 function indexIdNo(sample) {
     console.log(`sample`)
-    d3.json("../../samples.json").then((data)=>{
+    d3.json("samples.json").then((data)=>{
 
         
     var dropdownMenu = d3.select("#selDataset");
